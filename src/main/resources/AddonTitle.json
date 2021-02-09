@@ -1,0 +1,24 @@
+{
+  "format": "GITHUB",
+  "author": "KunE5252",
+  "repository": "kunEAddon",
+  "name": "kunEAddon",
+  "displayName": "쿤이 애드온",
+  "developer": "kuni_S2",
+  "icon": "d520b367-afc3-425b-978e-4f0a2682a379",
+  "links": [
+    {
+      "name": "깃헙 링크",
+      "link": "https://github.com/KunE5252"
+    }
+  ],
+  "description": [
+    "§e✰ §f| 능력자 플러그인의 여러 능력과 재미를 추가해주는 §b쿤이 애드온",
+    "§e✰ §f| 여러 시너지와 색다른 능력들과 함께 재밌는 AbilityWar 를 즐겨보세요 !",
+    " ",
+    "§e✰ §f| 능력 : 2개 / 시너지 : 0개 ",
+    " ",
+    "개발과 코드 개선에 도움을 주신 §b새벽§f님에게 감사드립니다.",
+    "§b✰ §f| §9Developer Discord §f: 쿤이#3820"
+  ]
+}
