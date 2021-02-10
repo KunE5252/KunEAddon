@@ -43,7 +43,6 @@ public class Mouseattack extends AbstractGame.Effect implements Listener {
         participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 2));
     }
 
-
     @Override
     protected void onEnd() {
         super.onEnd();
