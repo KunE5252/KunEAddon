@@ -1,18 +1,21 @@
 package KunE.Addon;
 
-import KunEAbility.*;
-import KunESynergy.*;
-import daybreak.abilitywar.ability.*;
-import daybreak.abilitywar.ability.list.*;
-import daybreak.abilitywar.addon.*;
-import daybreak.abilitywar.config.ability.*;
-import daybreak.abilitywar.game.event.*;
-import daybreak.abilitywar.game.list.mix.synergy.*;
-import daybreak.abilitywar.game.manager.*;
-import daybreak.abilitywar.utils.base.*;
-import daybreak.abilitywar.utils.base.io.*;
-import org.bukkit.*;
-import org.bukkit.event.*;
+import KunEAbility.Caelus;
+import KunEAbility.MadMiner;
+import KunEAbility.Mars;
+import KunEAbility.Mayreel;
+import KunEAbility.Mouse;
+import daybreak.abilitywar.ability.AbilityBase;
+import daybreak.abilitywar.ability.AbilityFactory;
+import daybreak.abilitywar.addon.Addon;
+import daybreak.abilitywar.config.ability.AbilitySettings;
+import daybreak.abilitywar.game.event.GameCreditEvent;
+import daybreak.abilitywar.game.manager.AbilityList;
+import daybreak.abilitywar.utils.base.Messager;
+import daybreak.abilitywar.utils.base.io.FileUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
 public class KunAddon extends Addon implements Listener {
 
@@ -24,8 +27,9 @@ public class KunAddon extends Addon implements Listener {
         registerAbility(MadMiner.class);
         registerAbility(Mayreel.class);
         registerAbility(Caelus.class);
+        registerAbility(Mouse.class);
+        registerAbility(Mars.class);
         Bukkit.getPluginManager().registerEvents(this, getPlugin());
-        SynergyFactory.registerSynergy(Ferda.class, Mayreel.class, Elf.class);
     }
 
     private static void registerAbility(Class<? extends AbilityBase> clazz) {
