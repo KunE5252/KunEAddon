@@ -75,6 +75,7 @@ public class Mars extends AbilityBase implements ActiveHandler {
     protected void onUpdate(Update update) {
         if (Update.RESTRICTION_CLEAR == update) {
             actionbarChannel.update("§7현재 추가 데미지 §f: " + thisdamage);
+            getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(max_health);
         }
         if (Update.ABILITY_DESTROY == update) {
             actionbarChannel.unregister();
