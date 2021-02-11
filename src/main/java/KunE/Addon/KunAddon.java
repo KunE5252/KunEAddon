@@ -50,7 +50,7 @@ public class KunAddon extends Addon implements Listener {
         AbilityFactory.registerAbility(DarkMagician.class);
         AbilityFactory.registerAbility(FireMagician.class);
 
-        // 마법 특성 목록 : 불,물,얼음,풀,자연,바람,암흑,빛,시간
+        // 마법 특성 목록 : 불,물,얼음,풀,자연,바람,암흑,빛,시간,전기
 
         GameFactory.registerMode(MagicWar.class);
     }
@@ -76,8 +76,6 @@ public class KunAddon extends Addon implements Listener {
 
     public static final AbilitySettings KunEAbilitySetting = new AbilitySettings(FileUtil.newFile("KunEAddon/KunEAddonAbilitySetting.yml"));
     public static final AbilitySettings KunEsynergySetting = new AbilitySettings(FileUtil.newFile("KunEAddon/KunEAddonSynergySetting.yml"));
-
-    public static final AbilitySettings KunEMagicWarAbility = new AbilitySettings(FileUtil.newFile("KunEAddon/KunEMagicWarAbility"));
 }
 
 
