@@ -9,6 +9,7 @@ import daybreak.abilitywar.ability.decorator.ActiveHandler;
 import daybreak.abilitywar.config.ability.AbilitySettings;
 import daybreak.abilitywar.game.AbstractGame.Participant;
 import daybreak.abilitywar.game.AbstractGame.Participant.ActionbarNotification.ActionbarChannel;
+import daybreak.abilitywar.utils.library.SoundLib;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -87,7 +88,9 @@ public class Mars extends AbilityBase implements ActiveHandler {
         if (material == Material.IRON_INGOT && clickType == ClickType.RIGHT_CLICK) {
             if (!cooldown.isCooldown()) {
                 this.thisdamage = random.nextInt(max_random_damage + 1);
-                getPlayer().sendMessage(prefix + "§7랜덤으로 뽑은 숫자 §f: " + thisdamage);
+                getPlayer().sendMessage(prefix + "랜덤으로 뽑은 숫자 : §c" + thisdamage);
+                getPlayer().sendMessage(prefix + "당신은 이제부터" + thisdamage + " 의 데미지를 추가로 공격합니다.");
+                SoundLib.UI_TOAST_CHALLENGE_COMPLETE.playSound(getPlayer());
                 actionbarChannel.update("§7현재 추가 데미지 §f: " + thisdamage);
                 getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(max_health);
                 cooldown.start();
