@@ -1,33 +1,43 @@
 package KunEAbility;
 
-import KunE.Addon.*;
-import KunEAbility.AbilityEffect.*;
-import daybreak.abilitywar.ability.*;
-import daybreak.abilitywar.ability.decorator.*;
-import daybreak.abilitywar.config.ability.*;
-import daybreak.abilitywar.game.AbstractGame.*;
-import daybreak.abilitywar.game.AbstractGame.Participant.ActionbarNotification.*;
-import daybreak.abilitywar.game.manager.effect.*;
-import daybreak.abilitywar.game.module.*;
-import daybreak.abilitywar.game.team.interfaces.*;
-import daybreak.abilitywar.utils.annotations.*;
-import daybreak.abilitywar.utils.base.color.*;
-import daybreak.abilitywar.utils.base.concurrent.*;
-import daybreak.abilitywar.utils.base.math.*;
-import daybreak.abilitywar.utils.base.math.geometry.*;
-import daybreak.abilitywar.utils.base.math.geometry.ImageVector.*;
-import daybreak.abilitywar.utils.base.minecraft.entity.health.*;
-import daybreak.abilitywar.utils.library.*;
-import daybreak.google.common.collect.*;
-import org.bukkit.*;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
-import org.bukkit.event.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent.*;
+import KunE.Addon.KunAddon;
+import KunEAbility.AbilityEffect.Damp;
+import KunEAbility.AbilityEffect.Fatigue;
+import KunEAbility.AbilityEffect.Paralysis;
+import daybreak.abilitywar.ability.AbilityBase;
+import daybreak.abilitywar.ability.AbilityManifest;
+import daybreak.abilitywar.ability.SubscribeEvent;
+import daybreak.abilitywar.ability.decorator.ActiveHandler;
+import daybreak.abilitywar.config.ability.AbilitySettings;
+import daybreak.abilitywar.game.AbstractGame.Participant;
+import daybreak.abilitywar.game.AbstractGame.Participant.ActionbarNotification.ActionbarChannel;
+import daybreak.abilitywar.game.manager.effect.Frost;
+import daybreak.abilitywar.game.module.DeathManager;
+import daybreak.abilitywar.game.team.interfaces.Teamable;
+import daybreak.abilitywar.utils.base.color.Gradient;
+import daybreak.abilitywar.utils.base.color.RGB;
+import daybreak.abilitywar.utils.base.concurrent.TimeUnit;
+import daybreak.abilitywar.utils.base.math.LocationUtil;
+import daybreak.abilitywar.utils.base.math.VectorUtil;
+import daybreak.abilitywar.utils.base.math.geometry.Circle;
+import daybreak.abilitywar.utils.base.math.geometry.ImageVector;
+import daybreak.abilitywar.utils.base.math.geometry.ImageVector.Point2D;
+import daybreak.abilitywar.utils.base.minecraft.entity.health.Healths;
+import daybreak.abilitywar.utils.library.ParticleLib;
+import daybreak.abilitywar.utils.library.SoundLib;
+import daybreak.google.common.collect.Iterables;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.util.Vector;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
 
 @AbilityManifest(name = "카일루스", rank = AbilityManifest.Rank.S, species = AbilityManifest.Species.GOD, explain = {
         "§7패시브 §8- §b구름 낙하§f: 낙하시 모든 낙하 데미지를 캔슬시킵니다.",
@@ -43,7 +53,6 @@ import java.util.function.*;
         "§7상태이상 §8- §9습함§f: 이동이 어려워지고 공격시에 1의 추가 피해를 줍니다.",
         "§7상태이상 §8- §e마비§f: 움직일 수 없어지고 시야가 차단됩니다."
 })
-@Beta
 public class Caelus extends AbilityBase implements ActiveHandler {
     public static final AbilitySettings.SettingObject<Integer> RIGHT_CLICK_COOLDOWN_CONFIG = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Caelus.class, "RIGHTCLICK_COOLDOWN", 80,
             "# 우클릭 쿨타임") {
