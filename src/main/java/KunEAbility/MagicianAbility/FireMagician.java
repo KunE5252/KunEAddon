@@ -15,7 +15,7 @@ import org.bukkit.Material;
 
 })
 public class FireMagician extends AbilityBase implements ActiveHandler {
-    public static final AbilitySettings.SettingObject<Integer> RIGHT_CLICK_COOLDOWN_CONFIG = KunAddon.KunEMagicWarAbility.new SettingObject<Integer>(FireMagician.class, "RIGHTCLICK_COOLDOWN", 80,
+    public static final AbilitySettings.SettingObject<Integer> RIGHT_CLICK_COOLDOWN_CONFIG = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(FireMagician.class, "RIGHTCLICK_COOLDOWN", 80,
             "# 우클릭 쿨타임") {
 
         @Override
