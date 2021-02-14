@@ -1,9 +1,7 @@
 package KunE.Addon;
 
-import Gamemode.MagicWar;
-import KunEAbility.MagicianAbility.DarkMagician;
-import KunEAbility.MagicianAbility.FireMagician;
 import KunEAbility.Caelus;
+import KunEAbility.Lewis;
 import KunEAbility.MadMiner;
 import KunEAbility.Mars;
 import KunEAbility.Mayreel;
@@ -14,10 +12,8 @@ import daybreak.abilitywar.addon.Addon;
 import daybreak.abilitywar.config.ability.AbilitySettings;
 import daybreak.abilitywar.game.event.GameCreditEvent;
 import daybreak.abilitywar.game.manager.AbilityList;
-import daybreak.abilitywar.game.manager.GameFactory;
 import daybreak.abilitywar.utils.base.Messager;
 import daybreak.abilitywar.utils.base.io.FileUtil;
-import daybreak.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,21 +40,9 @@ public class KunAddon extends Addon implements Listener {
         registerAbility(Caelus.class);
         registerAbility(Mouse.class);
         registerAbility(Mars.class);
+        registerAbility(Lewis.class);
         Bukkit.getPluginManager().registerEvents(this, getPlugin());
-
-        // 마법 능력자 전쟁 능력 등록
-        AbilityFactory.registerAbility(DarkMagician.class);
-        AbilityFactory.registerAbility(FireMagician.class);
-
-        // 마법 특성 목록 : 불,물,얼음,풀,자연,바람,암흑,빛,시간,전기
-
-        GameFactory.registerMode(MagicWar.class);
     }
-
-    public static final ImmutableList<Class<? extends AbilityBase>> MagicWarAbility = ImmutableList.of(
-            DarkMagician.class,
-            FireMagician.class
-    );
 
     private static void registerAbility(Class<? extends AbilityBase> clazz) {
         abilityCount++;
@@ -78,4 +62,19 @@ public class KunAddon extends Addon implements Listener {
     public static final AbilitySettings KunEsynergySetting = new AbilitySettings(FileUtil.newFile("KunEAddon/KunEAddonSynergySetting.yml"));
 }
 
+
+/*
+( 파티클 유틸 사용법 )
+
+~~~틱 or ~~~초[ 클래스에 타임 ] 마다 소환, 몇초동안 소환할건지, [ 틱단위 ]
+DiscoBallEffect effect = new DiscoBallEffect(getGame(), 100, getPlayer().getLocation());
+effect.sphereColor = RGB.AQUA;
+effect.lineColor = RGB.WHITE;
+effect.start();
+
+( 객체 수정법 )
+effect.sphereRadius = 3f;\
+
+! 사용시 타이머 돌려서 5 TICKS or 10 TICKS 로 조절해서 사용하기 [ 렉 ]
+*/
 
