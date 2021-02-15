@@ -11,8 +11,8 @@ import org.bukkit.event.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "습함", displayName = "§9습함", method = ApplicationMethod.UNIQUE_LONGEST, type = {
-        EffectType.MOVEMENT_RESTRICTION
+@EffectManifest(name = "습함", displayName = "§9습함", method = ApplicationMethod.UNIQUE_LONGEST, type = EffectType.MOVEMENT_RESTRICTION, description = {
+        "이동이 어려워지고 공격시에 1의 추가 피해를 줍니다."
 })
 
 public class Damp extends AbstractGame.Effect implements Listener {

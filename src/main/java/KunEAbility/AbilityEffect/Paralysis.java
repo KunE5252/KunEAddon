@@ -11,7 +11,9 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "마비", displayName = "§e마비", method = ApplicationMethod.UNIQUE_LONGEST)
+@EffectManifest(name = "마비", displayName = "§e마비", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "움직일 수 없어지고 시야가 차단됩니다."
+})
 public class Paralysis extends AbstractGame.Effect implements Listener {
 
     public static final EffectRegistration<Paralysis> registration = EffectRegistry.registerEffect(Paralysis.class);

@@ -1,5 +1,10 @@
 package KunE.Addon;
 
+import KunEAbility.AbilityEffect.Damp;
+import KunEAbility.AbilityEffect.Fatigue;
+import KunEAbility.AbilityEffect.Mouseattack;
+import KunEAbility.AbilityEffect.Paralysis;
+import KunEAbility.AbilityEffect.Thorn;
 import KunEAbility.Caelus;
 import KunEAbility.Lewis;
 import KunEAbility.MadMiner;

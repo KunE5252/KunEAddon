@@ -11,7 +11,9 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "피로", displayName = "§d피로", method = ApplicationMethod.UNIQUE_LONGEST)
+@EffectManifest(name = "피로", displayName = "§d피로", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "채굴속도가 매우 느리지며 움직일 경우 피해를 받습니다."
+})
 public class Fatigue extends AbstractGame.Effect implements Listener {
 
     public static final EffectRegistration<Fatigue> registration = EffectRegistry.registerEffect(Fatigue.class);

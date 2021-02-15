@@ -11,7 +11,9 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "속박의 가시", displayName = "§2속박의 가시", method = ApplicationMethod.UNIQUE_LONGEST)
+@EffectManifest(name = "속박의 가시", displayName = "§2속박의 가시", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "대상은 이동 불능 상태에 돌입하며, 움직임을 시도할 경우 독에 감염됩니다."
+})
 public class Thorn extends AbstractGame.Effect implements Listener {
 
     public static final EffectRegistration<Thorn> registration = EffectRegistry.registerEffect(Thorn.class);

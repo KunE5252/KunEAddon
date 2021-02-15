@@ -14,7 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-@EffectManifest(name = "쥐에게 물림!", displayName = "§7쥐에게 물림!", method = ApplicationMethod.UNIQUE_LONGEST)
+@EffectManifest(name = "쥐에게 물림!", displayName = "§7쥐에게 물림!", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "이동속도를 매우 느리게 만듭니다."
+})
 public class Mouseattack extends AbstractGame.Effect implements Listener {
 
     public static final EffectRegistration<Mouseattack> registration = EffectRegistry.registerEffect(Mouseattack.class);

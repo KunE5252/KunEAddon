@@ -114,6 +114,7 @@ public class Lewis extends AbilityBase implements ActiveHandler {
                 if (!cooldown.isCooldown()) {
                     if (MagicZone == null) {
                         new DarkMagicZone(rightclickduration, getPlayer().getLocation()).start();
+                        SoundLib.ENTITY_WITHER_AMBIENT.playSound(getPlayer(), 1, 0.1f);
                         return true;
                     }
                 }
@@ -206,7 +207,7 @@ public class Lewis extends AbilityBase implements ActiveHandler {
                     boundingBox.setCenter(loc);
                     for (LivingEntity livingEntity : LocationUtil.getConflictingEntities(LivingEntity.class, getPlayer().getWorld(), boundingBox, predicate)) {
                         livingEntity.damage(rightdamage, getPlayer());
-                        SoundLib.ENTITY_ZOMBIE_VILLAGER_CURE.playSound(getPlayer());
+                        SoundLib.ENTITY_WOLF_WHINE.playSound(getPlayer(), 0.7f, 2);
                     }
                 }
             }
@@ -235,7 +236,7 @@ public class Lewis extends AbilityBase implements ActiveHandler {
                     e.setDamage(e.getDamage() * 1.2);
                     new CutParticle(particleRight).start();
                     new CutParticle(particleLeft).start();
-                    SoundLib.ENTITY_WITHER_HURT.playSound(getPlayer());
+                    SoundLib.ENTITY_WITHER_HURT.playSound(getPlayer(), 0.5f, 1);
                 }
             }
         }

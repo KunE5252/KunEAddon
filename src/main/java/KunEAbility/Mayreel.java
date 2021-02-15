@@ -226,9 +226,11 @@ public class Mayreel extends AbilityBase implements ActiveHandler {
             for (final Location location : circleVectors.toLocations(getPlayer().getLocation()).floor(getPlayer().getLocation().getY())) {
                 ParticleLib.REDSTONE.spawnParticle(location, color);
             }
-            final Location playerLocation = getPlayer().getLocation().clone().add(0, 4, 0);
-            for (Point2D point2D : imageVector) {
-                ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw())), point2D.getColor());
+            if (count % 5 == 0) {
+                final Location playerLocation = getPlayer().getLocation().clone().add(0, 4, 0);
+                for (Point2D point2D : imageVector) {
+                    ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw())), point2D.getColor());
+                }
             }
             for (Player player : LocationUtil.getEntitiesInCircle(Player.class, getPlayer().getLocation(), 4, predicate)) {
                 Participant participant = getGame().getParticipant(player);
@@ -264,16 +266,16 @@ public class Mayreel extends AbilityBase implements ActiveHandler {
         protected void run(int count) {
             final Location playerLocation = getPlayer().getLocation().clone().add(0, 1, 0);
             final Vector left = VectorUtil.rotateAroundAxisY(playerLocation.getDirection().setY(0).normalize(), -90).multiply(4), right  = VectorUtil.rotateAroundAxisY(playerLocation.getDirection().setY(0).normalize(), 90).multiply(4);
-            for (Point2D point2D : imageVectorfiary) {
-                final Vector looking = VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw());
-                ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(looking).add(left), point2D.getColor());
-                ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(looking).add(right), point2D.getColor());
-            }
             if (count % 5 == 0) {
                 final Location focus = getPlayer().getTargetBlock(null, 15).getLocation();
                 for (Location location : new Location[] {playerLocation.clone().add(left), playerLocation.clone().add(right)}) {
                     new Bullet(getPlayer(), location, focus.toVector().subtract(location.toVector()), focus, BULLET_COLOR).start();
                     SoundLib.ENTITY_ARROW_HIT_PLAYER.playSound(getPlayer());
+                }
+                for (Point2D point2D : imageVectorfiary) {
+                    final Vector looking = VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw());
+                    ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(looking).add(left), point2D.getColor());
+                    ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(looking).add(right), point2D.getColor());
                 }
             }
             Fairyactionbar.update("§b페어리의 축복 지속시간 §f: " + (count / 10.0) + "초");

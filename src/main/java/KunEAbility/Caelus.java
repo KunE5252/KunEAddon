@@ -310,9 +310,11 @@ public class Caelus extends AbilityBase implements ActiveHandler {
             for (final Location location : circleVectors.toLocations(getPlayer().getLocation()).floor(getPlayer().getLocation().getY())) {
                 ParticleLib.REDSTONE.spawnParticle(location, color);
             }
-            final Location playerLocation = getPlayer().getLocation().clone().add(0, 4, 0);
-            for (Point2D point2D : state.imageVector) {
-                ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw())), point2D.getColor());
+            if (count % 5 == 0) {
+                final Location playerLocation = getPlayer().getLocation().clone().add(0, 4, 0);
+                for (Point2D point2D : state.imageVector) {
+                    ParticleLib.REDSTONE.spawnParticle(playerLocation.clone().add(VectorUtil.rotateAroundAxisY(point2D.clone(), -playerLocation.getYaw())), point2D.getColor());
+                }
             }
             state.run(Caelus.this, count);
             actionbar.update("§b구름 경계 지속시간 §f: " + (count / 10.0) + "초");
