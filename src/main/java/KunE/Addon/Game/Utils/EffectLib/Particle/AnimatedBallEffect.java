@@ -1,19 +1,21 @@
-package Game.Utils.EffectLib.Particle;
+package KunE.Addon.Game.Utils.EffectLib.Particle;
 
 import daybreak.abilitywar.game.AbstractGame;
 import daybreak.abilitywar.game.AbstractGame.GameTimer;
+import daybreak.abilitywar.utils.base.color.RGB;
 import daybreak.abilitywar.utils.base.concurrent.TimeUnit;
 import daybreak.abilitywar.utils.base.math.FastMath;
 import daybreak.abilitywar.utils.base.math.VectorUtil;
 import daybreak.abilitywar.utils.library.ParticleLib;
-import daybreak.abilitywar.utils.library.ParticleLib.SimpleParticle;
+import daybreak.abilitywar.utils.library.ParticleLib.ColouredParticle;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
 public class AnimatedBallEffect extends GameTimer {
 
-    public SimpleParticle particle = ParticleLib.REDSTONE;
+    public ColouredParticle particle = ParticleLib.REDSTONE;
     public int particles = 150;
+    public RGB rgb = RGB.RED;
     public int particlesPerIteration = 10;
     public float size = 1F;
     public float xFactor = 1F, yFactor = 2F, zFactor = 1F;
@@ -44,7 +46,7 @@ public class AnimatedBallEffect extends GameTimer {
             VectorUtil.rotateAroundAxisY(vector, yRotation);
             VectorUtil.rotateAroundAxisZ(vector, zRotation);
 
-            particle.spawnParticle(location.clone().add(vector));
+            particle.spawnParticle(location.clone().add(vector), rgb);
         }
     }
 

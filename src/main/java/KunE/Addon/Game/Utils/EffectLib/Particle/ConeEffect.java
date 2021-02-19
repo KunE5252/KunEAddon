@@ -1,4 +1,4 @@
-package Game.Utils.EffectLib.Particle;
+package KunE.Addon.Game.Utils.EffectLib.Particle;
 
 import daybreak.abilitywar.game.AbstractGame;
 import daybreak.abilitywar.game.AbstractGame.GameTimer;

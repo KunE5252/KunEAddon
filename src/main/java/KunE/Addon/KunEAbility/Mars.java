@@ -1,4 +1,4 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.KunAddon;
 import daybreak.abilitywar.ability.AbilityBase;
@@ -19,7 +19,7 @@ import java.util.Random;
 
 @AbilityManifest(name = "마루스", rank = AbilityManifest.Rank.S, species = Species.HUMAN, explain = {
         "§7패시브 §8- §c힘을 모아§f: 우클릭을 통하여 뽑은 데미지가 기존 데미지에 추가되어 들어갑니다. 또한 무적 해제시 랜덤으로 데미지를 배정받습니다.",
-        "§7철괴 우클릭 §8- §d인생은 한방§f: 자신의 최대체력을 4칸으로 고정하며 0 ~ $[MAX_RANDOM_DAMAGE] 까지에 데미지를 랜덤으로 뽑습니다. §c쿨타임 §7: §f$[RIGHT_CLICK_COOLDOWN_CONFIG]초"
+        "§7철괴 우클릭 §8- §d인생은 한방§f: 자신의 최대체력을 현재 체력의 반절로 고정하며 0 ~ $[MAX_RANDOM_DAMAGE] 까지에 데미지를 랜덤으로 뽑습니다. §c쿨타임 §7: §f$[RIGHT_CLICK_COOLDOWN_CONFIG]초"
 
 })
 public class Mars extends AbilityBase implements ActiveHandler {
@@ -31,15 +31,8 @@ public class Mars extends AbilityBase implements ActiveHandler {
             return value >= 1;
         }
     };
-    public static final AbilitySettings.SettingObject<Integer> MAX_RANDOM_DAMAGE = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Mars.class, "MAX_RANDOM_DAMAGE", 7,
+    public static final AbilitySettings.SettingObject<Integer> MAX_RANDOM_DAMAGE = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Mars.class, "MAX_RANDOM_DAMAGE", 5,
             "# 최대 랜덤 데미지") {
-        @Override
-        public boolean condition(Integer value) {
-            return value >= 1;
-        }
-    };
-    public static final AbilitySettings.SettingObject<Integer> MAX_HEALTH = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Mars.class, "MAX_HEALTH", 8,
-            "# 최대 체력 ( 1 당 반칸 )") {
         @Override
         public boolean condition(Integer value) {
             return value >= 1;
@@ -48,7 +41,6 @@ public class Mars extends AbilityBase implements ActiveHandler {
 
     private final Cooldown cooldown = new Cooldown(RIGHT_CLICK_COOLDOWN_CONFIG.getValue(), "인생은 한방", 50);
     private final int max_random_damage = MAX_RANDOM_DAMAGE.getValue();
-    private final int max_health = MAX_HEALTH.getValue();
 
     private static final String prefix = "§d[§c마루스§d] §f";
     private final Random random = new Random();
@@ -75,7 +67,7 @@ public class Mars extends AbilityBase implements ActiveHandler {
     protected void onUpdate(Update update) {
         if (Update.RESTRICTION_CLEAR == update) {
             actionbarChannel.update("§7현재 추가 데미지 §f: " + thisdamage);
-                getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(max_health);
+                getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getPlayer().getMaxHealth() / 2);
         }
         if (Update.ABILITY_DESTROY == update) {
             actionbarChannel.unregister();
@@ -93,7 +85,6 @@ public class Mars extends AbilityBase implements ActiveHandler {
                 getPlayer().sendMessage(prefix + "당신은 이제부터 " + thisdamage + "의 데미지를 추가로 공격합니다.");
                 SoundLib.UI_TOAST_CHALLENGE_COMPLETE.playSound(getPlayer());
                 actionbarChannel.update("§7현재 추가 데미지 §f: " + thisdamage);
-                getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(max_health);
                 cooldown.start();
             }
         }

@@ -1,4 +1,4 @@
-package KunEAbility.AbilityEffect;
+package KunE.Addon.KunEAbility.AbilityEffect;
 
 import daybreak.abilitywar.*;
 import daybreak.abilitywar.game.*;
@@ -11,12 +11,12 @@ import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "피로", displayName = "§d피로", method = ApplicationMethod.UNIQUE_LONGEST, description = {
-        "채굴속도가 매우 느리지며 움직일 경우 피해를 받습니다."
+@EffectManifest(name = "속박의 가시", displayName = "§2속박의 가시", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "대상은 이동 불능 상태에 돌입하며, 움직임을 시도할 경우 독에 감염됩니다."
 })
-public class Fatigue extends AbstractGame.Effect implements Listener {
+public class Thorn extends AbstractGame.Effect implements Listener {
 
-    public static final EffectRegistration<Fatigue> registration = EffectRegistry.registerEffect(Fatigue.class);
+    public static final EffectRegistration<Thorn> registration = EffectRegistry.registerEffect(Thorn.class);
 
     public static void apply(Participant participant, TimeUnit timeUnit, int duration) {
         registration.apply(participant, timeUnit, duration);
@@ -24,7 +24,7 @@ public class Fatigue extends AbstractGame.Effect implements Listener {
 
     private final Participant participant;
 
-    public Fatigue(Participant participant, TimeUnit timeUnit, int duration) {
+    public Thorn(Participant participant, TimeUnit timeUnit, int duration) {
         participant.getGame().super(registration, participant, timeUnit.toTicks(duration) / 2);
         setPeriod(TimeUnit.TICKS, 2);
         this.participant = participant;
@@ -37,18 +37,17 @@ public class Fatigue extends AbstractGame.Effect implements Listener {
     }
 
     @EventHandler
-    private void onPlayerMove(PlayerMoveEvent e) {
-        if (e.getPlayer().equals(participant.getPlayer())) {
-            e.getPlayer().damage(1, e.getPlayer());
+    private void onPlayerMove(final PlayerMoveEvent e) {
+        if (e.getPlayer().getUniqueId().equals(participant.getPlayer().getUniqueId())) {
+            final Location from = e.getFrom(), to = e.getTo();
+            participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20, 1));
+            if (to != null) {
+                to.setX(from.getX());
+                to.setY(from.getY());
+                to.setZ(from.getZ());
+            }
         }
     }
-
-    @Override
-    protected void run(int count) {
-        super.run(count);
-        participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20, 5));
-    }
-
 
     @Override
     protected void onEnd() {
@@ -62,5 +61,3 @@ public class Fatigue extends AbstractGame.Effect implements Listener {
         HandlerList.unregisterAll(this);
     }
 }
-
-

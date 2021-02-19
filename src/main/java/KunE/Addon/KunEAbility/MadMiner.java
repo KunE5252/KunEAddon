@@ -1,4 +1,4 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.*;
 import daybreak.abilitywar.*;

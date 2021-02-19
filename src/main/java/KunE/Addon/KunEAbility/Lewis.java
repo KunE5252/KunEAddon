@@ -1,4 +1,4 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.KunAddon;
 import com.google.common.collect.Iterables;

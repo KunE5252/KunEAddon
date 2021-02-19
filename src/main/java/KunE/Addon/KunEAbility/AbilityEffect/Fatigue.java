@@ -1,4 +1,4 @@
-package KunEAbility.AbilityEffect;
+package KunE.Addon.KunEAbility.AbilityEffect;
 
 import daybreak.abilitywar.*;
 import daybreak.abilitywar.game.*;
@@ -8,16 +8,15 @@ import daybreak.abilitywar.game.manager.effect.registry.EffectRegistry.*;
 import daybreak.abilitywar.utils.base.concurrent.*;
 import org.bukkit.*;
 import org.bukkit.event.*;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.player.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "습함", displayName = "§9습함", method = ApplicationMethod.UNIQUE_LONGEST, type = EffectType.MOVEMENT_RESTRICTION, description = {
-        "이동이 어려워지고 공격시에 1의 추가 피해를 줍니다."
+@EffectManifest(name = "피로", displayName = "§d피로", method = ApplicationMethod.UNIQUE_LONGEST, description = {
+        "채굴속도가 매우 느리지며 움직일 경우 피해를 받습니다."
 })
+public class Fatigue extends AbstractGame.Effect implements Listener {
 
-public class Damp extends AbstractGame.Effect implements Listener {
-
-    public static final EffectRegistration<Damp> registration = EffectRegistry.registerEffect(Damp.class);
+    public static final EffectRegistration<Fatigue> registration = EffectRegistry.registerEffect(Fatigue.class);
 
     public static void apply(Participant participant, TimeUnit timeUnit, int duration) {
         registration.apply(participant, timeUnit, duration);
@@ -25,7 +24,7 @@ public class Damp extends AbstractGame.Effect implements Listener {
 
     private final Participant participant;
 
-    public Damp(Participant participant, TimeUnit timeUnit, int duration) {
+    public Fatigue(Participant participant, TimeUnit timeUnit, int duration) {
         participant.getGame().super(registration, participant, timeUnit.toTicks(duration) / 2);
         setPeriod(TimeUnit.TICKS, 2);
         this.participant = participant;
@@ -38,17 +37,18 @@ public class Damp extends AbstractGame.Effect implements Listener {
     }
 
     @EventHandler
-    private void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        if (e.getDamager().equals(participant.getPlayer())) {
-            e.setDamage(e.getDamage() + 1);
+    private void onPlayerMove(PlayerMoveEvent e) {
+        if (e.getPlayer().equals(participant.getPlayer())) {
+            e.getPlayer().damage(1, e.getPlayer());
         }
     }
 
     @Override
     protected void run(int count) {
         super.run(count);
-        participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 5));
+        participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 20, 5));
     }
+
 
     @Override
     protected void onEnd() {
@@ -62,3 +62,5 @@ public class Damp extends AbstractGame.Effect implements Listener {
         HandlerList.unregisterAll(this);
     }
 }
+
+

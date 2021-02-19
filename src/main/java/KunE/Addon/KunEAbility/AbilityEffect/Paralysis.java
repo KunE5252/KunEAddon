@@ -1,4 +1,4 @@
-package KunEAbility.AbilityEffect;
+package KunE.Addon.KunEAbility.AbilityEffect;
 
 import daybreak.abilitywar.*;
 import daybreak.abilitywar.game.*;

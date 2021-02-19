@@ -1,4 +1,4 @@
-package KunEAbility.AbilityEffect;
+package KunE.Addon.KunEAbility.AbilityEffect;
 
 import daybreak.abilitywar.*;
 import daybreak.abilitywar.game.*;
@@ -8,15 +8,16 @@ import daybreak.abilitywar.game.manager.effect.registry.EffectRegistry.*;
 import daybreak.abilitywar.utils.base.concurrent.*;
 import org.bukkit.*;
 import org.bukkit.event.*;
-import org.bukkit.event.player.*;
+import org.bukkit.event.entity.*;
 import org.bukkit.potion.*;
 
-@EffectManifest(name = "속박의 가시", displayName = "§2속박의 가시", method = ApplicationMethod.UNIQUE_LONGEST, description = {
-        "대상은 이동 불능 상태에 돌입하며, 움직임을 시도할 경우 독에 감염됩니다."
+@EffectManifest(name = "습함", displayName = "§9습함", method = ApplicationMethod.UNIQUE_LONGEST, type = EffectType.MOVEMENT_RESTRICTION, description = {
+        "이동이 어려워지고 공격시에 1의 추가 피해를 줍니다."
 })
-public class Thorn extends AbstractGame.Effect implements Listener {
 
-    public static final EffectRegistration<Thorn> registration = EffectRegistry.registerEffect(Thorn.class);
+public class Damp extends AbstractGame.Effect implements Listener {
+
+    public static final EffectRegistration<Damp> registration = EffectRegistry.registerEffect(Damp.class);
 
     public static void apply(Participant participant, TimeUnit timeUnit, int duration) {
         registration.apply(participant, timeUnit, duration);
@@ -24,7 +25,7 @@ public class Thorn extends AbstractGame.Effect implements Listener {
 
     private final Participant participant;
 
-    public Thorn(Participant participant, TimeUnit timeUnit, int duration) {
+    public Damp(Participant participant, TimeUnit timeUnit, int duration) {
         participant.getGame().super(registration, participant, timeUnit.toTicks(duration) / 2);
         setPeriod(TimeUnit.TICKS, 2);
         this.participant = participant;
@@ -37,16 +38,16 @@ public class Thorn extends AbstractGame.Effect implements Listener {
     }
 
     @EventHandler
-    private void onPlayerMove(final PlayerMoveEvent e) {
-        if (e.getPlayer().getUniqueId().equals(participant.getPlayer().getUniqueId())) {
-            final Location from = e.getFrom(), to = e.getTo();
-            participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20, 1));
-            if (to != null) {
-                to.setX(from.getX());
-                to.setY(from.getY());
-                to.setZ(from.getZ());
-            }
+    private void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+        if (e.getDamager().equals(participant.getPlayer())) {
+            e.setDamage(e.getDamage() + 1);
         }
+    }
+
+    @Override
+    protected void run(int count) {
+        super.run(count);
+        participant.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 5));
     }
 
     @Override

@@ -1,20 +1,18 @@
 package KunE.Addon;
 
-import KunEAbility.AbilityEffect.Damp;
-import KunEAbility.AbilityEffect.Fatigue;
-import KunEAbility.AbilityEffect.Mouseattack;
-import KunEAbility.AbilityEffect.Paralysis;
-import KunEAbility.AbilityEffect.Thorn;
-import KunEAbility.Caelus;
-import KunEAbility.Lewis;
-import KunEAbility.MadMiner;
-import KunEAbility.Mars;
-import KunEAbility.Mayreel;
-import KunEAbility.Mouse;
+import KunE.Addon.KunEAbility.AbilityEffect.*;
+import KunE.Addon.KunEAbility.Caelus;
+import KunE.Addon.KunEAbility.Lewis;
+import KunE.Addon.KunEAbility.MadMiner;
+import KunE.Addon.KunEAbility.Mars;
+import KunE.Addon.KunEAbility.Mayreel;
+import KunE.Addon.KunEAbility.Mouse;
+import KunE.Addon.KunEAbility.Ninja;
 import daybreak.abilitywar.ability.AbilityBase;
 import daybreak.abilitywar.ability.AbilityFactory;
 import daybreak.abilitywar.addon.Addon;
 import daybreak.abilitywar.config.ability.AbilitySettings;
+import daybreak.abilitywar.game.AbstractGame;
 import daybreak.abilitywar.game.event.GameCreditEvent;
 import daybreak.abilitywar.game.manager.AbilityList;
 import daybreak.abilitywar.utils.base.Messager;
@@ -53,6 +51,35 @@ public class KunAddon extends Addon implements Listener {
         abilityCount++;
         AbilityFactory.registerAbility(clazz);
         AbilityList.registerAbility(clazz);
+    }
+
+    public enum KunEEffectFactory {
+        THORN(Thorn.class),
+        FATIGUE(Fatigue.class),
+        MOUSEATTACK(Mouseattack.class),
+        PARALYSIS(Paralysis.class),
+        DAMP(Damp.class),
+        BLIND(Blind.class);
+
+        Class<? extends AbstractGame.Effect> clazz;
+
+        KunEEffectFactory(Class<? extends AbstractGame.Effect> clazz) {
+            this.clazz = clazz;
+        }
+
+        public Class<? extends AbstractGame.Effect> getEffectClass() {
+            return clazz;
+        }
+
+        public static void load() {
+            for (KunEEffectFactory factory : KunEEffectFactory.values()) {
+                try {
+                    Class.forName(factory.getEffectClass().getName());
+                } catch (Exception ignored) {
+
+                }
+            }
+        }
     }
 
     @EventHandler

@@ -1,7 +1,7 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.KunAddon;
-import KunEAbility.AbilityEffect.Thorn;
+import KunE.Addon.KunEAbility.AbilityEffect.Thorn;
 import com.google.common.collect.Iterables;
 import daybreak.abilitywar.ability.AbilityBase;
 import daybreak.abilitywar.ability.AbilityManifest;
@@ -50,7 +50,7 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.function.Predicate;
 
-@AbilityManifest(name = "메이릴",rank = Rank.L, species = Species.GOD, explain = {
+@AbilityManifest(name = "메이릴",rank = Rank.S, species = Species.GOD, explain = {
         "§7근접 공격 §8- §a하프 연주§f: 메이릴이 주는 모든 공격 데미지는 원거리 데미지 취급이 됩니다, 또한 $[HAF_CONFIG]% 확률로 주는 데미지의 2배의 데미지로 공격합니다.",
         "§7철괴 우클릭 §8- §b요정의 행운§f: 자신의 위치를 기준으로 반지름 4칸의 구역을 생성하며 해당 구역은 $[RIGHT_CLICK_DURATION]초 동안 지속됩니다.",
         " 또한 이때 호수에 존재하는 모든 플레이어는 속박의 가시에 $[THORN_DURATION]초 동안 휩싸입니다. §c쿨타임 §7: §f$[RIGHT_CLICK_COOLDOWN_CONFIG]초",

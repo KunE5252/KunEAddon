@@ -1,9 +1,9 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.KunAddon;
-import KunEAbility.AbilityEffect.Damp;
-import KunEAbility.AbilityEffect.Fatigue;
-import KunEAbility.AbilityEffect.Paralysis;
+import KunE.Addon.KunEAbility.AbilityEffect.Damp;
+import KunE.Addon.KunEAbility.AbilityEffect.Fatigue;
+import KunE.Addon.KunEAbility.AbilityEffect.Paralysis;
 import daybreak.abilitywar.ability.AbilityBase;
 import daybreak.abilitywar.ability.AbilityManifest;
 import daybreak.abilitywar.ability.SubscribeEvent;
@@ -39,7 +39,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-@AbilityManifest(name = "카일루스", rank = AbilityManifest.Rank.S, species = AbilityManifest.Species.GOD, explain = {
+@AbilityManifest(name = "카일루스", rank = AbilityManifest.Rank.L, species = AbilityManifest.Species.GOD, explain = {
         "§7패시브 §8- §b구름 낙하§f: 낙하시 모든 낙하 데미지를 캔슬시킵니다.",
         "§7철괴 우클릭 §8- §e구름 경계§f: 자신의 위치를 기준으로 반지름 4칸의 원을 생성합니다.",
         " 이때 구름 경계의 상태에 따라 다른 디버프를 부여하며 구름 경계는 $[RIGHT_CLICK_DURATION]초 동안 지속됩니다. §c쿨타임 §7: §f$[RIGHT_CLICK_COOLDOWN_CONFIG]초",
@@ -62,7 +62,7 @@ public class Caelus extends AbilityBase implements ActiveHandler {
             return value >= 1;
         }
     };
-    public static final AbilitySettings.SettingObject<Integer> RIGHT_CLICK_DURATION = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Caelus.class, "RIGHTCLICK_DURATION", 10,
+    public static final AbilitySettings.SettingObject<Integer> RIGHT_CLICK_DURATION = KunAddon.KunEAbilitySetting.new SettingObject<Integer>(Caelus.class, "RIGHTCLICK_DURATION", 5,
             "# 우클릭 지속시간") {
 
         @Override
@@ -241,7 +241,7 @@ public class Caelus extends AbilityBase implements ActiveHandler {
                 if (count % 2 == 0) {
                     final Vector center = caelus.getPlayer().getLocation().toVector();
                     for (Player player : LocationUtil.getEntitiesInCircle(Player.class, caelus.getPlayer().getLocation(), 4, caelus.predicate)) {
-                        player.setVelocity(player.getLocation().toVector().subtract(center).normalize());
+                        player.setVelocity(player.getLocation().toVector().subtract(center).normalize().setY(0));
                         Damp.apply(caelus.getGame().getParticipant(player), TimeUnit.SECONDS, caelus.damptime);
                     }
                 }

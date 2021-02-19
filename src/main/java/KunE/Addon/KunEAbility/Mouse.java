@@ -1,7 +1,7 @@
-package KunEAbility;
+package KunE.Addon.KunEAbility;
 
 import KunE.Addon.KunAddon;
-import KunEAbility.AbilityEffect.Mouseattack;
+import KunE.Addon.KunEAbility.AbilityEffect.Mouseattack;
 import daybreak.abilitywar.ability.AbilityBase;
 import daybreak.abilitywar.ability.AbilityManifest;
 import daybreak.abilitywar.ability.AbilityManifest.Rank;
@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 @AbilityManifest(name = "쥐", rank = Rank.C, species = Species.ANIMAL, explain = {
         "플레이어를 공격시에 대상을 $[DURATION_CONFIG]초간 깨물어 이동 불능 상태와 데미지를 줍니다.",
-        "꺄아아악 우리집에 쥐가 나타났다 ! 도망쳐 !"
+        "꺄아아악 우리집에 쥐가 나타났다! 도망쳐!"
 })
 public class Mouse extends AbilityBase {
 
