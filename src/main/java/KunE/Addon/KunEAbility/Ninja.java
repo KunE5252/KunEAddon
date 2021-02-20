@@ -184,15 +184,11 @@ public class Ninja extends AbilityBase implements ActiveHandler {
         if (e.getEntity().equals(getPlayer()) && !e.isCancelled() && getPlayer().getHealth() - e.getDamage() <= 0) {
             if (respawn) {
                 e.setCancelled(true);
-                double damage = e.getFinalDamage();
-                if (getPlayer().getHealth() - damage <= 0) {
-                    e.setDamage(0);
-                    getPlayer().teleport(deathloc);
-                    getPlayer().setHealth(respawn_health);
-                    SoundLib.ENTITY_FIREWORK_ROCKET_LAUNCH.playSound(getPlayer());
-                    getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
-                    respawn = false;
-                }
+                getPlayer().teleport(deathloc);
+                getPlayer().setHealth(respawn_health);
+                SoundLib.ENTITY_FIREWORK_ROCKET_LAUNCH.playSound(getPlayer());
+                getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+                respawn = false;
             }
         }
     }
